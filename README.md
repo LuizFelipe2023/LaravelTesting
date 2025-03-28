@@ -1,66 +1,57 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Testes para o `PessoaController`
 
-## About Laravel
+Este repositório contém testes automatizados para o controlador `PessoaController`, que implementa as operações CRUD (Create, Read, Update, Delete) para o modelo `Pessoa`. Os testes foram escritos utilizando o framework de testes PHPUnit no Laravel.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Estrutura do CRUD
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+O controlador `PessoaController` permite as seguintes operações básicas:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1. **Criar uma Pessoa (Create)**:
+   - Criação de um novo registro de pessoa no banco de dados com informações como nome e idade.
 
-## Learning Laravel
+2. **Listar Pessoas (Read - Index)**:
+   - Exibição de uma lista de todas as pessoas cadastradas.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+3. **Visualizar Pessoa (Read - Show)**:
+   - Exibição de detalhes de uma pessoa específica com base no seu ID.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+4. **Atualizar uma Pessoa (Update)**:
+   - Atualização dos dados de uma pessoa existente.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+5. **Deletar uma Pessoa (Delete)**:
+   - Exclusão de uma pessoa do banco de dados.
 
-## Laravel Sponsors
+## Testes Implementados
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Testes de Funcionalidade CRUD
 
-### Premium Partners
+1. **Testar a Exibição da Página Inicial (`test_index_exists`)**
+   - Verifica se a rota `/pessoas` está acessível e retorna o status 200.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+2. **Testar Exibição da Lista de Pessoas (`test_index_shows_pessoas`)**
+   - Verifica se a página de listagem de pessoas exibe corretamente os dados de uma pessoa criada no banco de dados.
 
-## Contributing
+3. **Testar a Exibição de Pessoa Específica (`test_find_pessoa`)**
+   - Cria uma pessoa no banco de dados e verifica se ao acessar a rota para exibir os detalhes dessa pessoa, o sistema retorna o status 200 e exibe corretamente o nome e idade da pessoa.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+4. **Testar a Exibição de Pessoa Não Encontrada (`test_find_pessoa_not_found`)**
+   - Verifica o comportamento do sistema quando se tenta acessar uma pessoa que não existe (ID inexistente). O sistema deve retornar o status 404.
 
-## Code of Conduct
+5. **Testar Criação de Pessoa (`test_create_pessoa`)**
+   - Testa a criação de uma nova pessoa no banco de dados e verifica se o redirecionamento ocorre para a página de listagem de pessoas após a criação.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+6. **Testar Validação ao Criar Pessoa (`test_create_pessoa_validation`)**
+   - Verifica se o sistema valida os campos obrigatórios na criação de uma nova pessoa. Caso os campos `nome` e `idade` estejam vazios, o sistema deve retornar erros de validação.
 
-## Security Vulnerabilities
+7. **Testar Atualização de Pessoa (`test_update_pessoa`)**
+   - Testa a atualização de uma pessoa existente. Verifica se os dados da pessoa são atualizados corretamente no banco de dados após a atualização.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+8. **Testar Validação ao Atualizar Pessoa (`test_update_pessoa_validation`)**
+   - Verifica se o sistema valida os dados ao tentar atualizar uma pessoa com valores inválidos (por exemplo, nome vazio ou idade inválida).
 
-## License
+9. **Testar Deletação de Pessoa (`test_delete_pessoa`)**
+   - Testa a exclusão de uma pessoa do banco de dados e verifica se a pessoa foi realmente removida após a requisição de exclusão.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
